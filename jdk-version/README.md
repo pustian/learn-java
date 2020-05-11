@@ -1,5 +1,112 @@
 ## jdk7
 
+### switch-支持字符串
+
+`StringSwitchTest.java`
+
+原来支持的包括int，enum，等整形。
+
+### 泛型实例化类型自动推断
+
+`GenericTest.java`
+
+泛型编译阶段起作用，运行阶段不判断。
+
+运行时通过反射，可以不遵守类型
+
+### 功能接口扩展
+
+#### 新增一些取环境信息的工具方法
+
++ JDK1.7中引入了新的文件操作类java.*nio*.*file*这个包
++ 以下方法再jdk1.8已经被去掉了。而且再jdk1.7中也是有部分版本支持。
+
+```java
+File System.getJavaIoTempDir() // IO临时文件夹
+File System.getJavaHomeDir() // JRE的安装目录
+File System.getUserHomeDir() // 当前用户目录
+File System.getUserDir() // 启动java进程时所在的目录5
+```
+
+#### Boolean类型反转，空指针安全,参与位运算
+
+```java
+Boolean Booleans.negate(Boolean booleanObj)
+// True => False , False => True, Null => Null
+boolean Booleans.and(boolean[] array)
+boolean Booleans.or(boolean[] array)
+boolean Booleans.xor(boolean[] array)
+boolean Booleans.and(Boolean[] array)
+boolean Booleans.or(Boolean[] array)
+boolean Booleans.xor(Boolean[] array)
+```
+
+#### 两个char间的equals
+
+```java
+boolean Character.equalsIgnoreCase(char ch1, char ch2)
+```
+
+#### 数值可加下划线
+
+#### 支持二进制文字
+
+AtomTypeTest.java
+
+#### 假的---> 语法上支持集合，而不一定是数组
+
+CollectionsTest.java
+
+```
+List<String> list=["item"]; //向List集合中添加元素
+String item=list[0]; //从List集合中获取元素
+
+Set<String> set={"item"}; //向Set集合对象中添加元素
+Map<String,Integer> map={"key":1}; //向Map集合中添加对象
+int value=map["key"]; //从Map集合中获取对象
+```
+
+### 异常处理
+
+#### catch可以写多个异常类型
+
+#### 自动关闭资源
+
+> jdk7之前，你必须用try{}finally{}在try内使用资源，在finally中关闭资源，不管try中的代码是否正常退出或者异常退出。
+>
+> jdk7之后，你可以不必要写finally语句来关闭资源，只要你在`try()的括号内部定义要使用的资源`。 
+>
+> exception 增加了 addSuppressed，避免异常丢失。
+
+### 多线程
+
+#### Fork-Join多线程框架
+
+> 注意使用fork-join框架需要仔细衡量是否值得，当划分与运行环境不太合适的时候，会导致反而慢的情况。
+
+#### 安全的加减乘除
+
+> 多线程测试下
+
+```java
+int Math.safeToInt(long value)
+int Math.safeNegate(int value)
+long Math.safeSubtract(long value1, int value2)
+long Math.safeSubtract(long value1, long value2)
+int Math.safeMultiply(int value1, int value2)
+long Math.safeMultiply(long value1, int value2)
+long Math.safeMultiply(long value1, long value2)
+long Math.safeNegate(long value)
+int Math.safeAdd(int value1, int value2)
+long Math.safeAdd(long value1, int value2)
+long Math.safeAdd(long value1, long value2)
+int Math.safeSubtract(int value1, int value2)
+```
+
+### nio的使用
+
+### 观察者模式支持
+
 
 
 ## jdk8
@@ -179,3 +286,4 @@ Stream 不是集合元素，它不是数据结构并不保存数据，它是有�
 >
 
 JVM的 元数据
+

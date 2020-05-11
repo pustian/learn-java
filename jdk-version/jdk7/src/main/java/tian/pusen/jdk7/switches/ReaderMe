@@ -1,0 +1,41 @@
+2.
+
+3.语法上支持集合，而不一定是数组
+
+final List<Integer> piDigits = [ 1,2,3,4,5,8 ]; 
+4.新增一些取环境信息的工具方法
+
+
+5.Boolean类型反转，空指针安全,参与位运算
+
+
+
+6.两个char间的equals 
+
+
+7.安全的加减乘除 
+int Math.safeToInt(long value)
+
+int Math.safeNegate(int value)
+
+long Math.safeSubtract(long value1, int value2)
+
+long Math.safeSubtract(long value1, long value2)
+
+int Math.safeMultiply(int value1, int value2)
+
+long Math.safeMultiply(long value1, int value2)
+
+long Math.safeMultiply(long value1, long value2)
+
+long Math.safeNegate(long value)
+
+int Math.safeAdd(int value1, int value2)
+
+long Math.safeAdd(long value1, int value2)
+
+long Math.safeAdd(long value1, long value2)
+
+int Math.safeSubtract(int value1, int value2)
+
+8.map集合支持并发请求，且可以写成 Map map = {name:"xxx",age:18};
