@@ -1,0 +1,1 @@
+component.repair() 调用此处可能有问题导致无法画出页面
