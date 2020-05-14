@@ -112,3 +112,196 @@ notify/notifyAll 解除等待线程的阻塞状态 类似condition中signal/sing
 + notifyAll()
 + wait()
 + wait(long millis)
+
+## 监视器概念
+
+不加锁，保证监视器安全。最成功的方法是`监视器`
+
++ 只包含私有域的类
++ 每个监视器类对象有一个相关锁
++ 该锁对所有的方法进行加锁
++ 该锁可以有任意多个相关条件
+
+Java每一个对象有一个内部锁和内部条件，如果一个方法用 `synchronized` 关键字声明,他表现得就像是一个监视器方法。 通过wait/notify/notifyAll 来访问条件变量。
+
+## volatile域
+
+声明为 `volatile` 的域，编译器和虚拟机就知道该域可能被另外一个线程并发更新。
+
+> volatile不具备互斥性(当一个线程持有锁时，其他线程进不来，这就是互斥性)。
+> volatile不具备原子性。
+
+## final域
+
+构造函数完成后其他线程看到这个域值。
+
+
+
+## 原子性
+
+java.util.concurrent.atomic
+
+
+
+## 死锁
+
+java对死锁没有解决办法，如果出现死锁，则程序会一直挂起。
+
++ 所以使用锁时，最好锁的时候，增加以下时间参数。
+
+
+
+## 局部变量/ThreadLocal
+
+> get
+>
+> set
+>
+> remove
+
+## 锁测试和超时 --- 避免死锁
+
+Lock
+
+> + tryLock（）
+> + lockInterruptibly()
+
+Codition
+
+> await
+>
+> awaitUninterruptibly
+
+## 读写锁 ReentrantReadWriteLock
+
+readLock
+
+> 共享锁  允许读线程共享访问。
+
+writeLock
+
+> 排他锁 写线程是互斥访问。
+
+## 阻塞队列
+
+使用队列可以安全的从一个线程向另外一个线程传递数据。
+
+两组队列配合使用 put/take
+
+`BlockingQueueTest.java`
+
+```java
+1, 如果只保留 emuerator 线程。 进程阻塞
+2, emuerator 线程，放在search线程后启动，也能正常工作。
+```
+
+> 线程安全的队列实现者考虑 锁和条件。
+
+BlockingQueue
+
+LinkedBlockingQueue 
+
+LinkedBlockingDeque
+
+ArrayBlockingQueue
+
+PriorityBlockingQueue
+
+DelayQueue
+
+TransferQueue/LinkedTransferQueue  `1.7版本` 生产者等待
+
+## 线程安全的集合
+
+### Map, Set, Queue
+
+ConcurrentHashMap
+
+ConcurrentSkipListMap
+
+ConcurrentSkipListSet
+
+ConcurrentLinkedQueue
+
+### 写数组的复制
+
+CopyOnWriteArrayList
+
+CopyOnWriteArraySet
+
+### 早期线程安全集合
+
+List<E> synchArrayList = Collections.synchronizedList(new ArrayList<E>() )
+
+Map<K, V> synchArrayList = Collections.synchronizedMap(new HashMap<K, V>() )
+
+在经常修改的数组列表， Collections.synchronizedList(new ArrayList<E>() ) 效率会高过 CopyOnWriteArrayList，
+
++ Collections.synchronizedCollection
+
++ Collections.synchronizedList
++ Collections.synchronizedSet
++ Collections.synchronizedSortedSet
++ Collections.synchronizedMap
++ Collections.synchronizedSortedMap
+
+## Callable-Future
+
+Callable与Runnable类似但是有返回值
+
+Future 保存异步计算结果
+
+## 执行器
+
+构建线程牵扯到操作系统开销，频繁创建结束线程，应该使用线程池
+
+线程池中包含许多准备运行的空闲线程。
+
+将Runnbale对象交给线程池，就会有一个线程调用run方法。run方法退出时，线程池中准备为下一个请求提供服务。
+
+#### ExecutorService
+
+| 方法                                   | 描述                                                |                                        |
+| -------------------------------------- | --------------------------------------------------- | -------------------------------------- |
+| Executors.newCachedThreadPool          | 必要时创建新线程，空闲线程会被保留60s               |                                        |
+| Executors.newFixedThreadPool           | 固定数量的线程，空闲时一直被保留                    | 提交任务多余空闲线程，把任务放到队列中 |
+| Executors.newSingleThreadPool          | 只有一个线程的`池`，顺序执行每个提交任务            | 退化为线程数为1的线程池                |
+| Executors.newScheduledThreadPool       | 用于预定执行而构建的固定线程池，代替java.util.Timer |                                        |
+| Executors.newSingleThreadScheduledPool | 用于预定执行而构建的单线程`池`                      |                                        |
+
+## 线程池
+
+ExcutorService.ThreadPoolExecutor 
+
+#### 提交Runnable/Callable对象给ExecutorService
+
+> Future<?> submit(Runnable task)
+>
+> Future<T> submit(Runnable task, T result)
+>
+> Future<T> submit(Callable<T> task)
+
+#### 关闭线程池
+
+shutdown启动线程池的关闭序列。 被关闭的线程池不再接收新任务。所有任务结束，线程池中线程死亡。
+
+shutdownNow 线程池 取消尚未开始的所有任务，并实施图中断正在运行的线程
+
+##### 线程池使用顺序
+
+1. 调用静态方法 newCachedThreadPool newSingleThreadPool 或是newCachedThreadPool
+2. 调用submit 提交Runnable或是Callable对象
+3. 取消任务或是提交Callable对象，保存好返回的Future对象
+4. 不在提交任何任务时，调用shutdown
+
+### 预定执行
+
+### Fork-join
+
+# 同步器
+
+# Q:
+
+## ConcurrentHashMap 源码
+
+## 线程池调度原理

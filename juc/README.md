@@ -35,7 +35,7 @@ JUC就是java.util .concurrent工具包的简称。这是一个处理线程的�
 
 ## 多线程jvm调用模型
 
-tian.pusen.juc._01
+tian.pusen.juc._01_multithread
 
 Customer0 --- 多线程
 
