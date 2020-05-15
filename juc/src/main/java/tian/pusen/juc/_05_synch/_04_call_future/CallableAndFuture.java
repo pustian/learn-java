@@ -13,21 +13,25 @@ import java.util.concurrent.FutureTask;
 // 而Callable功能更强大一些，被线程执行后，可以返回值，这个返回值可以被Future拿到，也就是说，Future可以拿到异步执行任务的返回值
 public class CallableAndFuture {
 	public static void main(String[] args) {
+		System.out.println("Begin Main ");
+		System.out.println("sample1");
+		sample1();
 		System.out.println("sample2");
-//		sample1();
 		sample2();
-//		sample3();
+		System.out.println("sample3");
+		sample3();
 		System.out.println("Main End");
     }
 
 	public static void sample1(){
-        Callable<Integer> callable = new Callable<Integer>() {
-            public Integer call() throws Exception {
-                return new Random().nextInt(100);
+        Callable<String> callable = new Callable<String>() {
+            public String call() throws Exception {
+                return new Random().nextInt(100) + "";
             }
         };
-        FutureTask<Integer> futureTask = new FutureTask<Integer>(callable);
-        new Thread(futureTask).start();
+        FutureTask<String> futureTask = new FutureTask<String >(callable);
+		Thread thread = new Thread(futureTask);
+		thread.start();
         try {
             Thread.sleep(5000);// 可能做一些事情
             System.out.println(futureTask.get());
@@ -36,6 +40,7 @@ public class CallableAndFuture {
 			e.printStackTrace();
 		}
 	}
+
 	// Threadpool调用
 	public static void sample2(){
         ExecutorService threadPool = Executors.newSingleThreadExecutor();
@@ -51,6 +56,7 @@ public class CallableAndFuture {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        threadPool.shutdown();
 	}
 
 	// 返回多个值
@@ -74,5 +80,6 @@ public class CallableAndFuture {
 	     		e.printStackTrace();
 	     	}
 	     }
+	     threadPool.shutdown();
 	}
 }

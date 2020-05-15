@@ -74,6 +74,10 @@ new --->                      runnable                                     ---->
 
 # 同步
 
+> ```
+> 存在成员变量的类用于多线程时是不安全的，不安全体现在这个成员变量可能发生非原子性的操作，而变量定义在方法内也就是局部变量是线程安全的。
+> ```
+
 ## 竞争
 
 ## 原子操作
@@ -261,13 +265,13 @@ Future 保存异步计算结果
 
 #### ExecutorService
 
-| 方法                                   | 描述                                                |                                        |
-| -------------------------------------- | --------------------------------------------------- | -------------------------------------- |
-| Executors.newCachedThreadPool          | 必要时创建新线程，空闲线程会被保留60s               |                                        |
-| Executors.newFixedThreadPool           | 固定数量的线程，空闲时一直被保留                    | 提交任务多余空闲线程，把任务放到队列中 |
-| Executors.newSingleThreadPool          | 只有一个线程的`池`，顺序执行每个提交任务            | 退化为线程数为1的线程池                |
-| Executors.newScheduledThreadPool       | 用于预定执行而构建的固定线程池，代替java.util.Timer |                                        |
-| Executors.newSingleThreadScheduledPool | 用于预定执行而构建的单线程`池`                      |                                        |
+| Executors. 方法                  | 描述                                                |                                        |
+| -------------------------------- | --------------------------------------------------- | -------------------------------------- |
+| newCachedThreadPool              | 必要时创建新线程，空闲线程会被保留60s               |                                        |
+| newFixedThreadPool               | 固定数量的线程，空闲时一直被保留                    | 提交任务多余空闲线程，把任务放到队列中 |
+| newSingleThreadPool              | 只有一个线程的`池`，顺序执行每个提交任务            | 退化为线程数为1的线程池                |
+| newScheduledThreadPool           | 用于预定执行而构建的固定线程池，代替java.util.Timer |                                        |
+| newSingleThreadScheduledExecutor | 用于预定执行而构建的单线程`池`                      |                                        |
 
 ## 线程池
 
@@ -296,7 +300,29 @@ shutdownNow 线程池 取消尚未开始的所有任务，并实施图中断正�
 
 ### 预定执行
 
+> newScheduledThreadPool
+>
+> newSingleThreadScheduledExecutor
+
+### 控制任务组
+
+ExecutorService
+
+> invokeAll
+>
+> invokeAny
+
+ExecutorCompletionService
+
+> submit
+>
+> take
+>
+> poll
+
 ### Fork-join
+
+
 
 # 同步器
 
@@ -305,3 +331,4 @@ shutdownNow 线程池 取消尚未开始的所有任务，并实施图中断正�
 ## ConcurrentHashMap 源码
 
 ## 线程池调度原理
+
