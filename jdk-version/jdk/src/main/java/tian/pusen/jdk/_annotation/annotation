@@ -1,0 +1,45 @@
+　Java注解的基础知识点（见下面导图）基本都过了一遍，
+下一篇我们通过设计一个基于注解的简单的ORM框架，来综合应用和进一步加深对注解的各个知识点的理解和运用。
+
+
+Java Annotation:
+1, 概念定义
+	1.1 注释 提供一种为程序设定元数据的方法。
+			注释不能直接干扰代码正常运行，无论是否增加删除注释，代码能够正常运行
+			注释分类： 标注注解， 单值注解， 完整注解
+	1.2 元数据 metadata： 关于数据的数据
+			编写文档：通过代码标注的元数据生成文档
+			代码分析：通过代码标注的元数据对代码进行分析
+			编译检查：通过代码标注的元数据让编译器实现基本的编译检查
+2，系统注解
+	2.1 标准注解 
+		@Override 保证编译时函数声明的正确性
+		@Deprecated 对不该使用的方法注释
+		@SuppressWarnings 关闭特定警告： 
+			deprecation unchecked fallthrough path 
+			serial serialVersionUID finally all
+	2.2 元注释 负责注释其他注释（自定义注释）
+		@Retention 在什么级别保存该注释 
+			RetentionPolicy. SOURCE 注释会被编译器丢失
+			RetentionPolicy. CLASS  注释在class文件中可用，但会被VM丢弃
+			RetentionPolicy. RUNTIME VM在运行时也保留注释，可以通过反射机制获取注释信息
+		@Target 该注释用于什么地方
+			ElementType.CONSTRUCTOR 构造器声明
+			ElementType.FIELD	域声明，包括enum实例
+			ElementType.LOCAL_VARIABLE 局部变量
+			ElementType.METHOD  方法声明
+			ElementType.PACKAGE 包声明
+			ElementType.PARAMETER 参数声明
+			ElementType.TYPE  类 接口 注释类 enum声明
+		@Documented 注释包含在JavaDoc中
+		@Inhertied  允许子类集成父类的注释
+3，注释言数据类型 java里所有的数据类型 基本类型，String， class， enum， interface， Annotation
+
+4，提取注释 java.lang.reflect.AnnotatedElement接口 
+	 	已知实现类 Class Constructor Field Method Package
+	 	方法  getAnnotation  getAnnotations
+	 		 isAnnotaionPresent  getDeclaredAnnotations
+												
+			
+			
+	

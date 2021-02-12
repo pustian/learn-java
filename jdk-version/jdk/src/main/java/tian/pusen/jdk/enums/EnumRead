@@ -1,0 +1,2 @@
+enum 其实是继承 java.lang.Enum类
+定义的Enum中name是enum中的名称

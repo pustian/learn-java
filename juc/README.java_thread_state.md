@@ -265,13 +265,17 @@ Future 保存异步计算结果
 
 #### ExecutorService
 
-| Executors. 方法                  | 描述                                                |                                        |
-| -------------------------------- | --------------------------------------------------- | -------------------------------------- |
-| newCachedThreadPool              | 必要时创建新线程，空闲线程会被保留60s               |                                        |
-| newFixedThreadPool               | 固定数量的线程，空闲时一直被保留                    | 提交任务多余空闲线程，把任务放到队列中 |
-| newSingleThreadPool              | 只有一个线程的`池`，顺序执行每个提交任务            | 退化为线程数为1的线程池                |
-| newScheduledThreadPool           | 用于预定执行而构建的固定线程池，代替java.util.Timer |                                        |
-| newSingleThreadScheduledExecutor | 用于预定执行而构建的单线程`池`                      |                                        |
+| Executors. 方法                  | 描述                                                | 适用场景                                                     |
+| -------------------------------- | --------------------------------------------------- | ------------------------------------------------------------ |
+| newCachedThreadPool              | 必要时创建新线程，空闲线程会被保留60s               | 快速处理大量耗时较短的任务，如Netty的NIO接受请求时，可使用CachedThreadPool |
+| newFixedThreadPool               | 固定数量的线程，空闲时一直被保留                    | 可用于Web服务瞬时削峰，但需注意长时间持续高峰情况造成的队列阻塞。    提交任务多余空闲线程，把任务放到队列中。 |
+| newSingleThreadPool              | 只有一个线程的`池`，顺序执行每个提交任务            | 退化为线程数为1的线程池                                      |
+| newScheduledThreadPool           | 用于预定执行而构建的固定线程池，代替java.util.Timer |                                                              |
+| newSingleThreadScheduledExecutor | 用于预定执行而构建的单线程`池`                      |                                                              |
+
++ 其实都是调用 ThreadPoolExecutor 来实现的
+
+
 
 ## 线程池
 
